@@ -1,11 +1,12 @@
 const tmi = require("tmi.js");
 const config = require("./data/config.json");
-const {DATA, LANG} = require("./reader");
+const { loadData, PATH1, PATH2 } = require("./reader");
 const { timeout } = require("tmi.js/lib/commands");
 
 const TOKEN = config.token;
 const CHANNEL = config.channel;
 const USER = config.username;
+
 const opt = {
     identity: {
         username: USER,
@@ -14,13 +15,17 @@ const opt = {
     channels: [CHANNEL]
 }
 
+const DB = loadData([PATH1, PATH2]);
+const DATA = DB.data;
+const LANG = DB.languages;
+
 const client = tmi.client(opt);
 
-client.connect();
 
-client.on("connected", () => {
+
+client.on("connected", async () => {
     console.log(`Connected to ${CHANNEL}`);
-    client.say(CHANNEL, "Hi, bot connected!");
+    await client.say(CHANNEL, "Hi, bot connected!");
 });
 
 client.on("message", async (channel, _, message, self) => {
