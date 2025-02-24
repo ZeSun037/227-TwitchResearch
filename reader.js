@@ -1,9 +1,6 @@
 const fs = require("fs");
 const csvParser = require("csv-parser")
 
-const PATH1 = './data/bad_words_langs.csv';
-const PATH2 = './data/processed_bad_words.csv';
-
 const loadData = (paths) => {
     let dict = new Set();
     let db = [];
@@ -25,4 +22,4 @@ const loadData = (paths) => {
     };
 }
 
-module.exports = {loadData, PATH1, PATH2};
+module.exports = {loadData};

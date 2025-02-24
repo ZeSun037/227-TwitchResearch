@@ -15,7 +15,7 @@ const opt = {
     channels: [CHANNEL]
 }
 
-const DB = loadData([PATH1, PATH2]);
+const DB = loadData(config.paths);
 const DATA = DB.data;
 const LANG = DB.languages;
 
