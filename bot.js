@@ -4,7 +4,7 @@ const { loadData, PATH1, PATH2 } = require("./reader");
 const { timeout } = require("tmi.js/lib/commands");
 
 const TOKEN = config.token;
-const CHANNEL = config.channel;
+const CHANNEL = config.username;
 const USER = config.username;
 
 const opt = {
@@ -21,10 +21,9 @@ const LANG = DB.languages;
 
 const client = tmi.client(opt);
 
-
-
 client.on("connected", async () => {
     console.log(`Connected to ${CHANNEL}`);
+
     await client.say(CHANNEL, "Hi, bot connected!");
 });
 
@@ -46,6 +45,7 @@ client.on("message", async (channel, _, message, self) => {
         }
         else if (cmd[0] == "!run") {
             const eo_words = DATA.filter(data => data.language == "eo");
+            console.log(eo_words);
             for (let i = 0; i < eo_words.length; i++) {
                 await client.say(CHANNEL, eo_words[i].text);
             }
@@ -75,3 +75,5 @@ client.on("message", async (channel, _, message, self) => {
         }
     }
 });
+
+client.connect();
