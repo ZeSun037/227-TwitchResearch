@@ -9,14 +9,15 @@ const get_data = (file) => {
     fileReadStream
     .pipe(csvParser())
     .on("data", data => {
-        cnt += 1;
-        if (cnt < 15) {
-            DATA.push(data);
-        }
+        DATA.push(data);
+        LANG.add(data.language);
     })
     .on("end", () => {
-        console.log(DATA);
+        console.log("Completed Data loading.");
     });
 }
 
 get_data("./data/bad_words_langs.csv");
+get_data("./data/processed_bad_words.csv");
+
+module.exports = {DATA, LANG};
