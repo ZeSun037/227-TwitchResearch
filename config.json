@@ -1,7 +1,0 @@
-{
-    "client_id": "6s43iyasyasv0entgatoortqihi1gk",
-    "client_secret": "opl750are6iwtd2cct088p6g52ipz7",
-    "access_token": "1wqg237iernmyw0gvwaiid8dk4g8na",
-    "refresh_token": "432n2ugzm2fatvs8uhxb4ve4cmq8k8s4e51m2boz1nhxzxd728",
-    "http_cmd": "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=6s43iyasyasv0entgatoortqihi1gk&client_secret=opl750are6iwtd2cct088p6g52ipz7&redirect_uri=https://localhost:3000&scope=chat%3Aread+chat%3Aedit"
-}

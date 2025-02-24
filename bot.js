@@ -1,17 +1,26 @@
 const tmi = require("tmi.js");
+const config = require("./data/config.json");
 
-const TOKEN = "1wqg237iernmyw0gvwaiid8dk4g8na";
-const CHANNEL = "neolskywalker"; //Use Raymond's channel likely
+const TOKEN = config.token;
+const CHANNEL = config.channel;
+const USER = config.username;
 
 const opt = {
     identity: {
-        username: "neolskywalker",
+        username: USER,
         password: TOKEN,
     }, 
     channels: [CHANNEL]
 }
 
 const client = tmi.client(opt);
+
+client.connect();
+
+client.on("connected", () => {
+    console.log(`Connected to ${CHANNEL}`);
+    client.say(CHANNEL, "Hi, bot connected!");
+});
 
 client.on("message", async (channel, _, message, self) => {
     if (self || !message.trim().startsWith("!")) {
@@ -24,23 +33,23 @@ client.on("message", async (channel, _, message, self) => {
     .split(" ");
 
     if (cmd.length == 1) {
-        switch (cmd[0]) {
-            case "!help":
-                client.say(channel,
-                    `To test AutoMod, call !analyze and then call !run #<language abbreviation>. To run in English, use !run. To export data, use !analyze.`
-                );
-                break;
-            case "!run":
-                // Run default swear test in English
-                break;
-            case "!analyze":
-                // Connect with Rammya's code to start data profiling
-                // This is expected to be called first.
-                break;
-            default:
-                await client.say("Illegal command. Please try again.")
+        if (cmd[0] == "!help") {
+            await client.say(CHANNEL,
+                `To test AutoMod, call !analyze and then call !run #<language abbreviation>. To run in English, use !run. To export data, use !analyze.`
+            );
         }
-    } else if (cmd.length == 2) {
+        else if (cmd[0] == "!run") {
+            // Default
+        }
+        else if (cmd[0] == "!analyze") {
+            console.log("Analyze");
+            await client.say(CHANNEL, "Analyzing!");
+        }
+            
+        else {
+            await client.say("Illegal command. Please try again.");
+        }
+    } else if (cmd.length == 2 && cmd[0] === "!run") {
         const lang = cmd[1];
         const lang_db = new Map();
         if (lang_db.has(lang)) {
@@ -50,5 +59,3 @@ client.on("message", async (channel, _, message, self) => {
         }
     }
 });
-
-client.join(CHANNEL);
