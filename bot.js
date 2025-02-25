@@ -1,10 +1,11 @@
 const tmi = require("tmi.js");
 const config = require("./data/config.json");
-const { loadData, PATH1, PATH2 } = require("./reader");
+const http = require("http");
+const { loadData } = require("./reader");
 const { timeout } = require("tmi.js/lib/commands");
 
-const TOKEN = config.token;
-const CHANNEL = config.username;
+const TOKEN = config.accessToken;
+const CHANNEL = config.channel;
 const USER = config.username;
 
 const opt = {
@@ -76,4 +77,4 @@ client.on("message", async (channel, _, message, self) => {
     }
 });
 
-client.connect();
+await client.connect();
