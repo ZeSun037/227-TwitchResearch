@@ -1,7 +1,7 @@
 const fs = require("fs");
 const csvParser = require("csv-parser")
 
-const loadData = (paths) => {
+const loadData = async (paths) => {
     let dict = new Set();
     let db = [];
     for (let file of paths) {
@@ -14,7 +14,6 @@ const loadData = (paths) => {
         })
         .on("end", () => {
             console.log(`Completed Data loading for ${file.split("/")[2]}.`);
-            fileReadStream.close();
         });
     };
     return {

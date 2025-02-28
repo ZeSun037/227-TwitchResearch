@@ -17,6 +17,10 @@ const opt = {
     channels: [CHANNEL]
 }
 
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const DB = loadData(config.paths);
 const DATA = DB.data;
 const LANG = DB.languages;
@@ -37,11 +41,24 @@ client.on("chat", async (channel, _, message, self) => {
             }
             else if (cmd[0] == "!run") {
                 const eo_words = DATA.filter(data => data.language == "eo");
-                console.log(eo_words.length);
                 for (let i = 0; i < eo_words.length; i++) {
-                    await client.say(channel, eo_words[i].text);
+                    let postData = {
+                        "broadcaster_id": config.channel_id,
+                        "sender_id": config.channel_base_id,
+                        "message": `${eo_words[i].text}`
+                    };
+                
+                    var {data} = await axios.post(config.url, 
+                        postData, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${config.accessToken}`,
+                                "Client-Id": `${config.client_id}`
+                            }
+                    });
+                    console.log(JSON.stringify(data));
+                    await sleep(1500);
                 }
-                // Default
             }
             else if (cmd[0] == "!analyze") {
                 console.log("Analyze");
@@ -50,8 +67,22 @@ client.on("chat", async (channel, _, message, self) => {
             else if (cmd[0] == "!list") {
                 await client.say(channel, "Below are currently supported languages in attack set:");
                 for (let lang of LANG) {
-                    const status = await client.say(channel, `${lang.toUpperCase()}`);
-                    console.log(status);
+                    let postData = {
+                        "broadcaster_id": config.channel_id,
+                        "sender_id": config.channel_base_id,
+                        "message": `${lang.toUpperCase()}`
+                    };
+                
+                    var {data} = await axios.post(config.url, 
+                        postData, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${config.accessToken}`,
+                                "Client-Id": `${config.client_id}`
+                            }
+                    });
+                    console.log(JSON.stringify(data));
+                    await sleep(1500);
                 }
             } 
             else {
@@ -69,18 +100,5 @@ client.on("chat", async (channel, _, message, self) => {
     }
 });
 
-// client.on("connected", async () => {
-//     await client.say(config.channel, CURR);
-//     console.log(CURR);
-// })
-
-// for (let lang of LANG) {
-//     let words = DATA.filter(data => data.language === land);
-//     for (let word of words) {
-//         CURR = word.text;
-//         await client.connect();
-//         await client.disconnect();
-//     }
-//     console.log(lang);
-// }
+client.connect();
 
