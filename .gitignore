@@ -1,3 +1,4 @@
 node_modules
 data/*
 bun.lockb
+python-bot/.env

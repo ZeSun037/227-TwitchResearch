@@ -1,0 +1,15 @@
+{
+    "username": "Put Your username here",
+    "channel_base": "Same as username",
+    "channel_base_id": "Your user id, the same for your own channel",
+    "client_id": "Your app's client ID",
+    "client_secret": "Your app's client secret",
+    "accessToken": "Access Token generated",
+    "refreshToken": "use with tokenRefresher to re-generate accessToken",
+    "channel": "Channel you send messages to",
+    "channel_id": "Target Channel's ID",
+    "paths": [
+       "Put the path to your language csvs here"
+    ],
+    "url": "https://api.twitch.tv/helix/chat/messages"
+}

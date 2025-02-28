@@ -14,9 +14,8 @@ const loadData = (paths) => {
         })
         .on("end", () => {
             console.log(`Completed Data loading for ${file.split("/")[2]}.`);
+            fileReadStream.close();
         });
-        
-        fileReadStream.close();
     };
     return {
         data: db,

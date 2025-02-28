@@ -5,8 +5,9 @@ const { loadData } = require("./reader");
 const { timeout } = require("tmi.js/lib/commands");
 
 const TOKEN = config.accessToken;
-const CHANNEL = config.channel;
+const CHANNEL = config.channel_base;
 const USER = config.username;
+let CURR;
 
 const opt = {
     identity: {
@@ -68,4 +69,18 @@ client.on("chat", async (channel, _, message, self) => {
     }
 });
 
-await client.connect();
+// client.on("connected", async () => {
+//     await client.say(config.channel, CURR);
+//     console.log(CURR);
+// })
+
+// for (let lang of LANG) {
+//     let words = DATA.filter(data => data.language === land);
+//     for (let word of words) {
+//         CURR = word.text;
+//         await client.connect();
+//         await client.disconnect();
+//     }
+//     console.log(lang);
+// }
+

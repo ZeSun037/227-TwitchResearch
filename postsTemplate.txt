@@ -1,0 +1,9 @@
+curl -X POST 'https://api.twitch.tv/helix/chat/messages' \
+-H 'Authorization: Bearer <accessToken>' \
+-H 'Client-Id: <Client ID>' \
+-H 'Content-Type: application/json' \
+-d '{
+  "broadcaster_id": "<Channel ID>",
+  "sender_id": "User ID",
+  "message": "Hello, World! HeyGuys"
+}'

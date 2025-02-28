@@ -1,12 +1,18 @@
 {
   "dependencies": {
+    "@twurple/api": "^7.2.1",
+    "@twurple/auth": "^7.2.1",
+    "@twurple/chat": "^7.2.1",
+    "@twurple/easy-bot": "^7.2.1",
+    "@twurple/eventsub-ws": "^7.2.1",
     "axios": "^1.7.9",
     "csv": "^6.3.11",
     "csv-parser": "^3.2.0",
     "csv-reader": "^1.0.12",
     "naughty-words": "^1.2.0",
     "node-twitch": "^0.5.0",
-    "tmi": "^2.0.0",
-    "tmi.js": "^1.8.5"
+    "tmi": "^0.2.2",
+    "tmi.js": "^1.8.5",
+    "twitch": "^4.6.7"
   }
 }
